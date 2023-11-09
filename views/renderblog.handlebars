@@ -1,0 +1,33 @@
+<div class="text-black">
+  <h2>{{blogpost.title}}</h2>
+  <p>{{{blogpost.content}}}</p>
+  <p>Created by {{blogpost.user.username}} on {{format_date blogpost.createdAt}}</p>
+</div>
+
+{{#each blogpost.comments as |comment| }}
+<div class="row mb-4 blogpost card card-rounded">
+  <div class="col px-1">
+    <p>{{comment.content}}</p>
+    <p class="footer">- Created by {{comment.user.username}} on {{format_date comment.created_at}}</p>
+  </div>
+</div>
+{{/each}}
+
+{{#if logged_in}}
+<div class="row mt-4">
+  <div class="col-md-6">
+    <p>Add your comment:</p>
+
+    <form class="form create-comment">
+      <div class="form-group">
+        <textarea class="form-input" id="comment-content" name="comment-content"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+{{/if}}
+
+<script src="../js/renderblog.js"></script>

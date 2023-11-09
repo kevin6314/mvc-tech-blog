@@ -1,0 +1,17 @@
+<!-- Loop over each object in the blogpost array -->
+{{#each blogposts as |blogpost| }}
+<div class="row mb-4 blogpost">
+  <div class="col">
+    <h2>
+      <a href="/blogposts/edit/{{blogpost.id}}">{{blogpost.title}}</a>
+    </h2>
+    <p>Last updated on {{format_date blogpost.updatedAt}}</p>
+  </div>
+</div>
+{{/each}}
+
+<div class="col-md-6 blogpost-list">
+    <a href="/blogposts/" class="btn btn-primary create-blogpost">Create New</a>
+</div>
+
+<script src="./js/dashboard.js"></script>

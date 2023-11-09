@@ -1,0 +1,49 @@
+{{!-- <div class="row">
+  <div class="col-auto">
+    <h2>Welcome, {{username}}!</h2>
+  </div>
+</div> --}}
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>Edit your BlogPost:</h3>
+
+    <form class="form edit-blogpost">
+      <div class="form-group">
+        <label for="blogpost-title">Title:</label>
+        <input class="form-input" type="text" id="blogpost-title" name="blogpost-title" />
+      </div>
+      <div class="form-group">
+        <label for="blogpost-content">Content:</label>
+        <textarea class="form-input" id="blogpost-content" name="blogpost-content"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Edit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../../js/editblog.js"></script>
+
+  {{!-- {{#if blogposts.length}}
+  <div class="col-md-6 project-list">
+    <h3>Current Blogs:</h3>
+
+<!-- Loop over each object in the blogpost array -->
+{{#each blogposts as |blogpost| }}
+<div class="row mb-4 blogpost">
+  <div class="col">
+    <h2>
+      <a href="/blogposts/{{blogpost.id}}/edit">{{blogpost.title}}</a>
+    </h2>
+    <p>Last updated on {{format_date blogpost.updatedAt}}</p>
+  </div>
+</div>
+{{/each}}
+
+<div class="col-md-6 blogpost-list">
+    <a href="/blogposts/new" class="btn btn-sm create-blogpost">Create New</a>
+</div> --}}
+
+

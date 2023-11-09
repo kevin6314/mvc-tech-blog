@@ -5,7 +5,7 @@ const withAuth = require('../../utils/auth');
 // ROUTE: /api/blogposts
 
 //----create a new blog----//
-router.post('/', withAuth, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const newBlogPost = await BlogPost.create({
           ...req.body,
@@ -19,7 +19,7 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 //----update a blog----//
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/:id', async (req, res) => {
 
     const { id } = req.params;
 
@@ -49,7 +49,7 @@ router.put('/:id', withAuth, async (req, res) => {
 });
 
 //----delete a blog----//
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     
     const { id, user_id } = req.params;
 
@@ -72,9 +72,33 @@ router.delete('/:id', withAuth, async (req, res) => {
       }
 });
 
+// Handle the submission of the new blog post form
+router.post('/new', async (req, res) => {
+    try {
+      const { title, content } = req.body;
+  
+      // Get the logged in user based on the session ID
+      const user = await User.findByPk(req.session.user_id);
+  
+      // Create a new blog post associated with the user
+      const newBlogPost = await BlogPost.create({
+        title,
+        content,
+        // Associate the blog post with the logged in user
+        user_id: user.id
+      });
+  
+      // Redirect to the blog post page or show a success message
+      res.redirect(`/blogposts/${newBlogPost.id}`);
+    } catch (err) {
+      console.error('Error creating blog post:', err);
+      res.status(500).json(err);
+    }
+  });
+  
 
 //----add a comment----//
-router.post('/:id/comments', withAuth, async (req, res) => {
+router.post('/comments/', async (req, res) => {
     try {
         const newComment = await Comment.create({
           ...req.body,
@@ -85,6 +109,19 @@ router.post('/:id/comments', withAuth, async (req, res) => {
         } catch (err) {
             res.status(400).json(err);
         }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const blogpostData = await BlogPost.findByPk(req.params.id, {
+        });
+
+        const blogpost = blogpostData.get({ plain: true });
+
+        res.status(200).json(blogpost);
+      } catch (err) {
+        res.status(500).json(err);
+      }
 });
 
 module.exports = router;

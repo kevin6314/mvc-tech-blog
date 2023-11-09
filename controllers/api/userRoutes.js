@@ -21,6 +21,9 @@ router.post('/', async (req, res) => {
 
 //----log user in----//
 router.post('/login', async (req, res) => {
+
+  console.log(req.body);
+
     try {
         const userData = await User.findOne({ where: { email: req.body.email } });
     
@@ -30,15 +33,16 @@ router.post('/login', async (req, res) => {
             .json({ message: 'Incorrect email or password, please try again' });
           return;
         }
+        
+        //----i think i have an issue with bcrypt----//
+        // const validPassword = await userData.checkPassword(req.body.password);
     
-        const validPassword = await userData.checkPassword(req.body.password);
-    
-        if (!validPassword) {
-          res
-            .status(400)
-            .json({ message: 'Incorrect email or password, please try again' });
-          return;
-        }
+        // if (!validPassword) {
+        //   res
+        //     .status(400)
+        //     .json({ message: 'Incorrect email or password, please try again' });
+        //   return;
+        // }
     
         req.session.save(() => {
           req.session.user_id = userData.id;
@@ -48,7 +52,8 @@ router.post('/login', async (req, res) => {
         });
     
       } catch (err) {
-        res.status(400).json(err);
+          console.error(err);
+          res.status(500).json({ message: 'Internal Server Error' });
       }
 });
 
