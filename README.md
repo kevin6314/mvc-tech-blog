@@ -15,7 +15,7 @@ SO THAT I can publish articles, blog posts, and my thoughts and opinions
 ```
 ## Try It
 ```
-[Link](https://github.com/kevin6314/mvc-tech-blog/)
+[Link](https://mvc-tech-blog-kevin-4ce3afc78a1c.herokuapp.com/)
 ```
 
 ## Acceptance Criteria
